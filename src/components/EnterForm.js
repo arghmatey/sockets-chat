@@ -7,7 +7,7 @@ const EnterForm = () => {
 
     return (
         <div className="formWrapper">
-            <h1>Enter Chat</h1>
+            <h1>Enter Room</h1>
             <input placeholder="Username" className="formInput" type="text" onChange={e => setUsername(e.target.value)} />
             <input placeholder="Room name" className="formInput" type="text" onChange={e => setRoom(e.target.value)} />
             <Link
