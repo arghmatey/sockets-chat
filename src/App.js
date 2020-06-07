@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
 import EnterForm from './components/EnterForm';
+import Chatroom from './components/Chatroom';
 
 const App = () => {
   return (
@@ -13,9 +14,7 @@ const App = () => {
       <main>
         <Router>
           <Route exact path='/' component={EnterForm} />
-          <Route exact path='/chatroom' render={() =>
-            <div>hi</div>
-          } />
+          <Route exact path='/chatroom' render={Chatroom} />
         </Router>
       </main>
     </div>
