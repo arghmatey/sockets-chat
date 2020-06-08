@@ -14,7 +14,7 @@ const App = () => {
       <main>
         <Router>
           <Route exact path='/' component={EnterForm} />
-          <Route exact path='/chatroom' render={Chatroom} />
+          <Route exact path='/chatroom' component={Chatroom} />
         </Router>
       </main>
     </div>

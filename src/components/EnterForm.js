@@ -12,9 +12,7 @@ const EnterForm = () => {
             <input placeholder="Room name" className="formInput" type="text" onChange={e => setRoom(e.target.value)} />
             <Link
                 onClick={e => (!username && !room) ? e.preventDefault() : null}
-                to={'/chatroom'}
-                username={username}
-                room={room}
+                to={`/chatroom?username=${username}&room=${room}`}
             >
                 <button className="formButton" type="submit">Enter</button>
             </Link>

@@ -22,7 +22,7 @@ main {
 }
 
 .chatWrapper {
-  outline: 1px solid navy;
+  outline: 1px solid grey;
   height: 500px;
   width: 600px;
   display: grid;
@@ -31,13 +31,14 @@ main {
 }
 
 .messagesWrapper {
+  outline: 1px solid grey;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
-  outline: 1px solid grey;
 }
 
 .usersWrapper {
   background-color: lightgrey;
+  outline: 1px solid grey;
   grid-column: 1 / 2;
   grid-row: 1 / 3;
 }
