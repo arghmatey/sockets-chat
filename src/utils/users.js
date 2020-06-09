@@ -1,10 +1,15 @@
 const users = [];
 
-const userEnter = (id, username, room) => {
+const userEnter = ({ id, username, room }) => {
+    username = username.trim().toLowerCase();
+    room = room.trim().toLowerCase();
+
     const user = { id, username, room };
 
     users.push(user);
-    return user;
+    console.log(users);
+    console.log({ user });
+    return { user };
 }
 
 const userLeave = id => {
@@ -20,7 +25,7 @@ const currentUser = id => {
 }
 
 const usersInRoom = room => {
-    return users.filter(user => user.room === room);
+    return users.filter(user => user[room] === room);
 }
 
 module.exports = {

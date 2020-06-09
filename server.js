@@ -23,29 +23,27 @@ app.get('/', function (req, res) {
 
 io.on('connection', (socket) => {
     socket.on('join', ({ username, room }) => {
-        const user = userEnter(socket.id, username, room);
+        const { user } = userEnter({ id: socket.id, username, room });
+
         socket.join(user.room);
 
         socket.emit('message', {
             user: 'SocketChat',
-            text: `Welcome to ${user.room}, ${user.name}!`
+            text: `Welcome to ${user.room}, ${user.username}!`
         });
         socket.broadcast.to(user.room).emit('message', {
             user: 'SocketChat',
-            text: `${user.name} has entered the chat.`
+            text: `${user.username} has entered the chat.`
         });
 
-        io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: usersInRoom(user.room)
-        });
+        io.to(user.room).emit('roomUsers', { room: user.room, users: usersInRoom(user.room) });
     });
 
     socket.on('sendMessage', message => {
         const user = currentUser(socket.id);
 
         io.to(user.room).emit('message', {
-            user: user.name,
+            user: user.username,
             text: message
         });
     });
@@ -56,7 +54,7 @@ io.on('connection', (socket) => {
         if (user) {
             io.to(user.room).emit('message', {
                 user: 'SocketChat',
-                text: `${user.name} has left the chat.`
+                text: `${user.username} has left the chat.`
             });
             io.to(user.room).emit('roomUsers', {
                 room: user.room,

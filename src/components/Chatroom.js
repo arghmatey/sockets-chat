@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
+import ChatMessages from './ChatMessages';
+import RoomInfo from './RoomInfo';
+import NewMessage from './NewMessage';
+
 let socket;
 
 const Chatroom = ({ location }) => {
@@ -41,17 +45,27 @@ const Chatroom = ({ location }) => {
         }
     }
 
-    console.log(messages)
+    console.log(messages);
 
     return (
         <div className="chatWrapper">
             <div className="messagesWrapper">
-                {/* messages here */}
+                <ChatMessages
+                    username={username}
+                    messages={messages}
+                />
             </div>
             <div className="usersWrapper">
-                {/* list of users in room here */}
+                <RoomInfo
+                    room={room}
+                />
             </div>
             <div className="newWrapper">
+                <NewMessage
+                    message={message}
+                    setMessage={setMessage}
+                    sendMessage={sendMessage}
+                />
                 <input
                     placeholder="Type your message here..."
                     className="newMessage"
