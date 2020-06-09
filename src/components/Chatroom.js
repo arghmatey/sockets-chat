@@ -25,17 +25,15 @@ const Chatroom = ({ location }) => {
 
         socket.emit('join', { username, room });
 
+        socket.on('roomUsers', ({ users }) => {
+            setUsers(users);
+        });
+
         return () => {
             socket.emit('disconnect');
             socket.off();
         }
     }, [endpoint, location.search]);
-
-    useEffect(() => {
-        socket.on('roomUsers', ({ users }) => {
-            setUsers(users);
-        });
-    }, [users]);
 
     useEffect(() => {
         socket.on('message', message => {
@@ -53,6 +51,8 @@ const Chatroom = ({ location }) => {
         }
     }
 
+    console.log(users, Array.isArray(users));
+
     return (
         <div className="chatWrapper">
             <div className="messagesWrapper">
@@ -63,6 +63,7 @@ const Chatroom = ({ location }) => {
             </div>
             <div className="usersWrapper">
                 <RoomInfo
+                    users={users}
                     room={room}
                 />
             </div>
