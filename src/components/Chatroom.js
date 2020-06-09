@@ -13,6 +13,7 @@ const Chatroom = ({ location }) => {
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [users, setUsers] = useState('');
     const endpoint = 'http://localhost:3000';
 
     useEffect(() => {
@@ -31,10 +32,17 @@ const Chatroom = ({ location }) => {
     }, [endpoint, location.search]);
 
     useEffect(() => {
+        socket.on('roomUsers', ({ users }) => {
+            setUsers(users);
+        });
+    }, [users]);
+
+    useEffect(() => {
         socket.on('message', message => {
-            setMessages([...messages, message]);
-        })
-    }, [messages])
+            setMessages(messages => [...messages, message]);
+        });
+    }, [messages]);
+
 
     const sendMessage = e => {
         e.preventDefault();
@@ -44,8 +52,6 @@ const Chatroom = ({ location }) => {
             setMessage('');
         }
     }
-
-    console.log(messages);
 
     return (
         <div className="chatWrapper">
