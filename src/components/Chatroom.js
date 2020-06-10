@@ -14,7 +14,7 @@ const Chatroom = ({ location }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState('');
-    const endpoint = 'http://localhost:3000';
+    const endpoint = 'https://smalltalk-bigtalk.herokuapp.com/';
     const chatEl = useRef(null);
 
     useEffect(() => {
