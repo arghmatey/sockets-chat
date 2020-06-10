@@ -22,6 +22,7 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', (socket) => {
+    console.log('user connected!')
     socket.on('join', ({ username, room }) => {
         const { user } = userEnter({ id: socket.id, username, room });
 
@@ -40,6 +41,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendMessage', message => {
+        console.log('message sent!')
         const user = currentUser(socket.id);
 
         io.to(user.room).emit('message', {
@@ -49,6 +51,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
+        console.log('user disconnected!')
         const user = userLeave(socket.id);
 
         if (user) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
@@ -15,6 +15,7 @@ const Chatroom = ({ location }) => {
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState('');
     const endpoint = 'http://localhost:3000';
+    const chatEl = useRef(null);
 
     useEffect(() => {
         const { username, room } = queryString.parse(location.search);
@@ -37,10 +38,11 @@ const Chatroom = ({ location }) => {
 
     useEffect(() => {
         socket.on('message', message => {
-            setMessages(messages => [...messages, message]);
+            setMessages([...messages, message]);
+
+            chatEl.current.scrollTop = chatEl.current.scrollHeight;
         });
     }, [messages]);
-
 
     const sendMessage = e => {
         e.preventDefault();
@@ -51,39 +53,23 @@ const Chatroom = ({ location }) => {
         }
     }
 
-    console.log(users, Array.isArray(users));
-
     return (
         <div className="chatWrapper">
-            <div className="messagesWrapper">
+            <div ref={chatEl} className="messagesContainer">
                 <ChatMessages
                     username={username}
                     messages={messages}
                 />
             </div>
-            <div className="usersWrapper">
-                <RoomInfo
-                    users={users}
-                    room={room}
-                />
-            </div>
-            <div className="newWrapper">
-                <NewMessage
-                    message={message}
-                    setMessage={setMessage}
-                    sendMessage={sendMessage}
-                />
-                <input
-                    placeholder="Type your message here..."
-                    className="newMessage"
-                    value={message}
-                    onChange={e => setMessage(e.target.value)}
-                    onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null} />
-                <button
-                    className="messageSend"
-                    type="submit"
-                    onClick={e => sendMessage(e)}>Send</button>
-            </div>
+            <RoomInfo
+                users={users}
+                room={room}
+            />
+            <NewMessage
+                message={message}
+                setMessage={setMessage}
+                sendMessage={sendMessage}
+            />
         </div>
     )
 }

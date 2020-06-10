@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        Socket Chat by me... Sarah!
+        Socket Chat by Sarah!
       </header>
       <main>
         <Router>

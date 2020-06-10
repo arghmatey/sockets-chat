@@ -3,7 +3,9 @@
 }
 
 .App-header {
+  line-height: 20vh;
   height: 20vh;
+  margin: 0;
 }
 
 main {
@@ -30,10 +32,11 @@ main {
   grid-template-rows: 90% 10%;
 }
 
-.messagesWrapper {
+.messagesContainer {
   outline: 1px solid grey;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
+  overflow: auto;
 }
 
 .usersWrapper {
@@ -54,4 +57,27 @@ main {
 .newMessage {
   width: 75%;
   padding: 8px;
+}
+
+.chatMessage {
+  background-color: lightblue;
+  width: 60%;
+  height: auto;
+  margin: 10px;
+  text-align: left;
+  float: left;
+}
+
+.chatMessage *, .userMessage * {
+  margin: 0;
+  padding: 5px;
+}
+
+.userMessage {
+  background-color: lavender;
+  width: 60%;
+  height: auto;
+  margin: 10px;
+  float: right;
+  text-align: left;
 }
