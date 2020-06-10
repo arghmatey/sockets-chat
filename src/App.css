@@ -65,13 +65,14 @@ main {
   width: 60%;
   height: auto;
   margin: 10px;
+  border-radius: 15px 15px 15px 0px;
   text-align: left;
   float: left;
 }
 
 .chatMessage *, .userMessage * {
   margin: 0;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 .userMessage {
@@ -79,6 +80,7 @@ main {
   width: 60%;
   height: auto;
   margin: 10px;
+  border-radius: 15px 15px 0px 15px;
   float: right;
   text-align: left;
 }
