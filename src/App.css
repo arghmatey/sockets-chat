@@ -19,7 +19,8 @@ main {
   width: 175px;
 }
 
-.formWrapper input {
+.formInput {
+  width: 90%;
   margin-bottom: 10px;
 }
 
@@ -33,7 +34,7 @@ main {
 }
 
 .messagesContainer {
-  outline: 1px solid grey;
+  border-bottom: 1px solid grey;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   overflow: auto;
