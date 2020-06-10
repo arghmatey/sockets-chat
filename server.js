@@ -8,12 +8,12 @@ const io = require('socket.io')(server);
 
 const { userEnter, userLeave, currentUser, usersInRoom } = require('./src/utils/users')
 
-const router = require('./routes/index')
+// const router = require('./routes/index')
 
 app.use(logger('dev'));
 app.use(express.json());
 
-app.use(router);
+// app.use(router);
 
 app.use(express.static(path.join(__dirname, 'build')));
 
