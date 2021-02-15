@@ -18,11 +18,11 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 io.on('connection', (socket) => {
-    console.log('user connected!')
+    console.log('according to this data i am much stronger than ' + socket.id);
     socket.on('join', ({ username, room }) => {
         const { user } = userEnter({ id: socket.id, username, room });
 
@@ -40,13 +40,12 @@ io.on('connection', (socket) => {
         io.to(user.room).emit('roomUsers', { room: user.room, users: usersInRoom(user.room) });
     });
 
-    socket.on('sendMessage', message => {
-        console.log('message sent!')
+    socket.on('sendMessage', msg => {
         const user = currentUser(socket.id);
 
         io.to(user.room).emit('message', {
             user: user.username,
-            text: message
+            text: msg
         });
     });
 

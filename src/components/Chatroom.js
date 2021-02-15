@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import queryString from 'query-string';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 import ChatMessages from './ChatMessages';
 import RoomInfo from './RoomInfo';
@@ -14,13 +14,12 @@ const Chatroom = ({ location }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState('');
-    const endpoint = 'https://smalltalk-bigtalk.herokuapp.com/';
     const chatEl = useRef(null);
 
     useEffect(() => {
-        const { username, room } = queryString.parse(location.search);
+        socket = io();
 
-        socket = io(endpoint);
+        const { username, room } = queryString.parse(location.search);
         setUsername(username);
         setRoom(room);
 
@@ -34,15 +33,15 @@ const Chatroom = ({ location }) => {
             socket.emit('disconnect');
             socket.off();
         }
-    }, [endpoint, location.search]);
+    }, [location.search]);
 
     useEffect(() => {
-        socket.on('message', message => {
-            setMessages([...messages, message]);
+        socket.on('message', msg => {
+            setMessages(messages => [...messages, msg]);
 
             chatEl.current.scrollTop = chatEl.current.scrollHeight;
         });
-    }, [messages]);
+    }, []);
 
     const sendMessage = e => {
         e.preventDefault();
